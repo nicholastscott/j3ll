@@ -9,5 +9,9 @@ with st.sidebar:
 
 st.write("Hello!")
 
-if choice == "":
+if choice == "All":
+    pass
+
+if choice == "Streets Department":
+    filter
     pass
