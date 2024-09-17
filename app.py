@@ -35,7 +35,7 @@ data = data.applymap(remove_emails)
 
 st.write(choice)
 
-st.write(
+'''st.write(
     """
 Explore how ML can help classify 311 complaints 
 """
@@ -79,3 +79,4 @@ if choice == "Streets Department":
     #rslt_df = data['title'].isin(Streets_Department_Filter)
     #st.write(rslt_df)
     pass
+    '''
