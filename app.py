@@ -2,9 +2,9 @@ import streamlit as st
 import pandas as pd
 import marvin
 from openai import OpenAI
-import re
+#import re
 
-client = OpenAI()
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 #Sidebar
 with st.sidebar:
