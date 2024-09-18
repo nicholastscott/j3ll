@@ -21,7 +21,7 @@ data = pd.read_csv('311_limit_30_7-7-24.csv')
 
 # Cleaning up dataframe
 data = data.drop(columns=['web-scraper-order', 'web-scraper-start-url'])
-
+'''
 # Define a function to remove emails
 def remove_emails(text):
     if isinstance(text, str):
@@ -35,7 +35,7 @@ data = data.applymap(remove_emails)
 
 st.write(choice)
 
-'''st.write(
+st.write(
     """
 Explore how ML can help classify 311 complaints 
 """
