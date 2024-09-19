@@ -6,6 +6,8 @@ import re
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
+MARVIN_OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
+
 
 #Body of Webpage
 #Data
@@ -27,7 +29,7 @@ def remove_emails(text):
     return text
 
 # Apply the function across all columns in the DataFrame
-data = data.applymap(remove_emails)
+data = data.map(remove_emails)
 
 
 
@@ -35,12 +37,11 @@ data = data.applymap(remove_emails)
 with st.sidebar:
     st.logo("logos/logo-no-background.png")
     st.title("Built to classify 311 data")
-    st.info("""How to Use:  
-        &nbsp;&nbsp;&nbsp;&nbsp;1. Choose desired filter
-            """)
+    with st.expander("How to Use"):
+            st.write('''1. Choose desired filters  
+                    2. Click Classification Column Header to sort by top issues''')  
     issue_title = st.selectbox(label='Select an Issue Type:', index=None, options=data['title'].unique())
     st.write("""This application was designed with the citizen and call center responder in mind. It allows while suggesting: 1. Agency Assignment and 2. Importance/Urgency""")
-    st.write("Data taken from:")
 
 agency_to_issue = {
     "Streets Department" : ["Illegal Dumping (private)"]
@@ -92,3 +93,5 @@ if issue_title == "Illegal Dumping (private)":
             data = data[data['title'] == issue_title]
 
 st.dataframe(data)
+
+st.write(f"Data Source: https://iframe.publicstuff.com/#?client_id=242")
