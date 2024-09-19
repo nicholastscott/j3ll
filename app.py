@@ -6,22 +6,18 @@ import re
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-#Sidebar
-with st.sidebar:
-    st.logo("logos/logo-no-background.png")
-    st.title("Built to classify 311 data")
-    choice = st.radio("Agency", ["All","Streets Department","Philly311 Contact Center",])
-    st.info("""This application was designed with the citizen and call center responder in mind. It allows while suggesting: 1. Agency Assignment and 2. Importance/Urgency""")
-
 
 #Body of Webpage
 #Data
-data = pd.read_csv('311_limit_30_7-7-24.csv')
+@st.cache_data()
+def load_data():
+    data = pd.read_csv('311_limit_30_7-7-24.csv')
+    return data
 
-
+data = load_data()
 # Cleaning up dataframe
 data = data.drop(columns=['web-scraper-order', 'web-scraper-start-url'])
-'''
+
 # Define a function to remove emails
 def remove_emails(text):
     if isinstance(text, str):
@@ -33,13 +29,28 @@ def remove_emails(text):
 # Apply the function across all columns in the DataFrame
 data = data.applymap(remove_emails)
 
-st.write(choice)
 
-st.write(
+
+#Sidebar
+with st.sidebar:
+    st.logo("logos/logo-no-background.png")
+    st.title("Built to classify 311 data")
+    issue_title = st.selectbox(label='Select an Issue Type:', index=None, options=data['title'].unique())
+    st.info("""This application was designed with the citizen and call center responder in mind. It allows while suggesting: 1. Agency Assignment and 2. Importance/Urgency""")
+
+
+agency_to_issue = {
+    "Streets Department" : ["Illegal Dumping (private)"]
+}
+
+
+st.header(
     """
 Explore how ML can help classify 311 complaints 
 """
 )
+
+
 # Define a mapping from classification text to integer
 classification_mapping = {
     "Very Urgent and Very Important": 1,
@@ -64,19 +75,23 @@ data['Classification'] = predicted_sentiments
 ts = pd.Timestamp(year = 2024,  month = 7, day = 15, 
                   hour = 10, second = 49, tz = 'US/Eastern')
 
-st.info(ts)
-st.write(data)
+st.info("""
+        How to Use:  
+        &nbsp;&nbsp;&nbsp;&nbsp;1.  
+        f'Last Date Updated: [{ts}]'  
+        
+        
+        """)
 
-Streets_Department_Filter = ['Illegal Dumping (private)']
 
-#Abandoned Automobile (private)
+Streets_Department_Filter = ["Illegal Dumping (private)"]
 
 
-if choice == "All":
-    pass
+#if  == "Streets Department":
+#    data = data['title'] == "Illegal Dumping (private)"
 
-if choice == "Streets Department":
-    #rslt_df = data['title'].isin(Streets_Department_Filter)
-    #st.write(rslt_df)
-    pass
-    '''
+if issue_title == "Illegal Dumping (private)":
+            st.caption(f'Filtering by Issue Type: :green[{issue_title}]')
+            data = data[data['title'] == issue_title]
+
+st.dataframe(data)
