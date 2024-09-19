@@ -8,6 +8,8 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 marvin.settings.openai.api_key = st.secrets["OPENAI_API_KEY"]
 
+#Page Config
+st.set_page_config(layout="wide")
 
 #Body of Webpage
 #Data
@@ -36,12 +38,14 @@ data = data.map(remove_emails)
 #Sidebar
 with st.sidebar:
     st.logo("logos/logo-no-background.png")
-    st.title("Built to classify 311 data")
+    st.title("Classifying Complaints for Better Outcomes")
     with st.expander("How to Use"):
-            st.write('''1. Choose desired filters  
-                    2. Click Classification Column Header to sort by top issues''')  
+            st.write("""1. Choose desired filters  
+    2. Click Classification Column Header to sort by top issues""")  
     issue_title = st.selectbox(label='Select an Issue Type:', index=None, options=data['title'].unique())
-    st.write("""This application was designed with the citizen and call center responder in mind. It allows while suggesting: 1. Agency Assignment and 2. Importance/Urgency""")
+    st.write("""This application was designed with the citizen and call center responder in mind. It has two key insights for action:  
+             1. Agency Assignment    
+            2. Importance/Urgency Matrix Ranking""")
 
 agency_to_issue = {
     "Streets Department" : ["Illegal Dumping (private)"]
@@ -85,12 +89,23 @@ st.info(f'Last Updated: [{ts}]')
 Streets_Department_Filter = ["Illegal Dumping (private)"]
 
 
-#if  == "Streets Department":
-#    data = data['title'] == "Illegal Dumping (private)"
-
+#Issue filtering
 if issue_title == "Illegal Dumping (private)":
             st.caption(f'Filtering by Issue Type: :green[{issue_title}]')
             data = data[data['title'] == issue_title]
+
+if issue_title == "Abandoned Automobile (private)":
+            st.caption(f'Filtering by Issue Type: :green[{issue_title}]')
+            data = data[data['title'] == issue_title]
+
+if issue_title == "Traffic Sign Complaint (private)":
+            st.caption(f'Filtering by Issue Type: :green[{issue_title}]')
+            data = data[data['title'] == issue_title]
+
+if issue_title == "Construction Complaint (private)":
+            st.caption(f'Filtering by Issue Type: :green[{issue_title}]')
+            data = data[data['title'] == issue_title]
+
 
 st.dataframe(data)
 
