@@ -35,9 +35,12 @@ data = data.applymap(remove_emails)
 with st.sidebar:
     st.logo("logos/logo-no-background.png")
     st.title("Built to classify 311 data")
+    st.info("""How to Use:  
+        &nbsp;&nbsp;&nbsp;&nbsp;1. Choose desired filter
+            """)
     issue_title = st.selectbox(label='Select an Issue Type:', index=None, options=data['title'].unique())
-    st.info("""This application was designed with the citizen and call center responder in mind. It allows while suggesting: 1. Agency Assignment and 2. Importance/Urgency""")
-
+    st.write("""This application was designed with the citizen and call center responder in mind. It allows while suggesting: 1. Agency Assignment and 2. Importance/Urgency""")
+    st.write("Data taken from:")
 
 agency_to_issue = {
     "Streets Department" : ["Illegal Dumping (private)"]
@@ -75,13 +78,7 @@ data['Classification'] = predicted_sentiments
 ts = pd.Timestamp(year = 2024,  month = 7, day = 15, 
                   hour = 10, second = 49, tz = 'US/Eastern')
 
-st.info("""
-        How to Use:  
-        &nbsp;&nbsp;&nbsp;&nbsp;1.  
-        f'Last Date Updated: [{ts}]'  
-        
-        
-        """)
+st.info(f'Last Updated: [{ts}]')
 
 
 Streets_Department_Filter = ["Illegal Dumping (private)"]
