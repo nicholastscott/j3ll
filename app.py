@@ -6,7 +6,7 @@ import re
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-MARVIN_OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
+marvin.settings.openai.api_key = st.secrets["OPENAI_API_KEY"]
 
 
 #Body of Webpage
