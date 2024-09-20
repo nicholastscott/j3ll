@@ -38,7 +38,7 @@ data = data.map(remove_emails)
 #Sidebar
 with st.sidebar:
     st.logo("logos/logo-no-background.png")
-    st.title("Classifying Complaints for Better Outcomes")
+    st.title("Streamlining Neighbors' Voices")
     with st.expander("How to Use"):
             st.write("""1. Choose desired filters  
     2. Click Classification Column Header to sort by top issues""")  
