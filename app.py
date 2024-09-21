@@ -70,9 +70,9 @@ classification_mapping = {
 
 description_list = data['description']
 
-predicted_sentiments = []
-for i in data['description']:
-    predicted_sentiments.append(marvin.classify([i], labels=["very urgent and very important", "less urgent and very important", "less important and very urgent", "less urgent and less important"]))  
+#predicted_sentiments = []
+#for i in data['description']:
+#    predicted_sentiments.append(marvin.classify([i], labels=["very urgent and very important", "less urgent and very important", "less important and very urgent", "less urgent and less important"]))  
 
 data['Classification'] = predicted_sentiments
 
