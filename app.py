@@ -74,7 +74,7 @@ description_list = data['description']
 #for i in data['description']:
 #    predicted_sentiments.append(marvin.classify([i], labels=["very urgent and very important", "less urgent and very important", "less important and very urgent", "less urgent and less important"]))  
 
-data['Classification'] = predicted_sentiments
+#data['Classification'] = predicted_sentiments
 
 #data['Classification_Number'] = classification_mapping[1]
 
@@ -107,6 +107,6 @@ if issue_title == "Construction Complaint (private)":
             data = data[data['title'] == issue_title]
 
 
-st.dataframe(data)
+#st.dataframe(data)
 
 st.write(f"Data Source: https://iframe.publicstuff.com/#?client_id=242")
